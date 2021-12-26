@@ -1,0 +1,28 @@
+@use "./variables" as var;
+
+.Main {
+	margin-top: 30px;
+	// display: flex;
+	.search-for-currencies-row {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.currencies-container {
+		display: flex;
+		justify-content: center;
+		.currencies {
+			width: 90vw;
+		}
+	}
+	.currency-row {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		div {
+			background-color: var.$secondary;
+			padding: 10px;
+			margin: 0.25rem 0;
+			border-bottom: 2px solid var.$accent;
+		}
+	}
+}
