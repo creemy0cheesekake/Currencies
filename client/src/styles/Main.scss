@@ -17,7 +17,7 @@
 	}
 	.currency-row {
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
+		grid-template-columns: repeat(6, 1fr);
 		div {
 			background-color: var.$secondary;
 			padding: 10px;
