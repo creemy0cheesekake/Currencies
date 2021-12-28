@@ -42,6 +42,9 @@ const Main: React.FC<Props> = (props: Props) => {
 					type="text"
 					value={searchForCurrencyVal}
 					maxLength={10}
+					onClick={e => {
+						alert(e.target);
+					}}
 					onChange={e =>
 						setSearchForCurrencyVal(e.target.value.toUpperCase())
 					}

@@ -18,7 +18,6 @@ interface Data {
 const api_key = `&access_key=${process.env.API_KEY}`;
 
 const getCurrentData = async (req: express.Request, res: express.Response) => {
-	console.log("getCurrentData");
 	let response: Data[] = [];
 	try {
 		const data1 = await (
@@ -38,9 +37,11 @@ const getCurrentData = async (req: express.Request, res: express.Response) => {
 		}
 
 		res.send(response);
-	} catch (err: any) {
-		res.send(err);
-		console.log(err);
+	} catch (error: any) {
+		res.status(500).send({
+			msg: "Probably run out of API calls, sorry!",
+			error,
+		});
 	}
 };
 
@@ -67,7 +68,7 @@ const getDataFromSearch = async (
 			});
 		}
 		res.send(response.filter(el => el.ticker.includes(searchQuery)));
-	} catch (error) {
+	} catch (error: any) {
 		res.status(400).send({
 			msg: "Bad Request",
 			error,
