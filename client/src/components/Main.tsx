@@ -59,6 +59,7 @@ const Main: React.FC = () => {
 					value={searchForCurrencyVal}
 					maxLength={10}
 					ref={searchBoxRef}
+					onKeyPress={e => e.key === "Enter" && handleSubmitSearch()}
 					onFocus={() => {
 						// used 'setSelectionRange()' instead of '.select()' due to compatibility issues on Safari Mobile
 						searchBoxRef.current!.setSelectionRange(0, 20);

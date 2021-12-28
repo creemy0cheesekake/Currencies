@@ -7,7 +7,7 @@ export const Logo = (props: Props) => {
 	return (
 		<div className="Logo">
 			<h1>
-				Money<span>Live</span>
+				Forex<span>Aide</span>
 			</h1>
 		</div>
 	);
