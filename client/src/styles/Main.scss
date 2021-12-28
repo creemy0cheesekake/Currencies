@@ -1,7 +1,7 @@
 @use "./variables" as var;
 
 .Main {
-	margin-top: 30px;
+	margin-block: 30px;
 	.search-for-currencies-row {
 		display: flex;
 		justify-content: center;
@@ -27,6 +27,9 @@
 			&:first-child {
 				color: rgb(211, 211, 211);
 			}
+			&:nth-child(5) {
+				color: goldenrod;
+			}
 			&.positive-change {
 				background-color: rgba(rgb(36, 138, 40), 0.5);
 			}
@@ -43,6 +46,10 @@
 				color: black;
 				font-weight: bold;
 			}
+		}
+		transition: filter 0.25s;
+		&:hover {
+			filter: brightness(1.25);
 		}
 	}
 	.search-status-messages {
@@ -61,7 +68,7 @@
 		}
 		&.err {
 			p {
-				background-color: rgb(173, 63, 63);
+				background-color: var.$accent;
 			}
 		}
 	}

@@ -20,12 +20,13 @@ const Main: React.FC = () => {
 
 	const searchBoxRef = createRef<HTMLInputElement>();
 
-	const handleSubmitSearch = async () => {
+	const handleSubmitSearch = async (e: any) => {
+		e.preventDefault();
 		try {
 			setLoading(true);
 			const searchQuery = searchBoxRef.current!.value;
 			const response = await axios.get(
-				"http://localhost:3000/api/v1/search?q=" + searchQuery
+				process.env.REACT_APP_API_PATH + "/search?q=" + searchQuery
 			);
 			setCurrencyData(response.data);
 		} catch (err) {
@@ -38,12 +39,13 @@ const Main: React.FC = () => {
 		(async () => {
 			try {
 				const response = await axios.get(
-					"http://localhost:3000/api/v1"
+					process.env.REACT_APP_API_PATH!
 				);
 				setCurrencyData(response.data);
 			} catch (err) {
 				alert(
-					"Sorry, I'm broke and thus, I can't afford the paid version of this API, and so I've run out of calls to this API for the month. Try refreshing the page, if that doesn't work, please check again next month 😜"
+					"Sorry, I'm broke and thus, I can't afford the paid version of this API, and there are call limits 😭" +
+						err
 				);
 			}
 			setLoading(false);
@@ -54,21 +56,24 @@ const Main: React.FC = () => {
 		<div className="Main">
 			<Logo />
 			<div className="search-for-currencies-row">
-				<input
-					type="text"
-					value={searchForCurrencyVal}
-					maxLength={10}
-					ref={searchBoxRef}
-					onKeyPress={e => e.key === "Enter" && handleSubmitSearch()}
-					onFocus={() => {
-						// used 'setSelectionRange()' instead of '.select()' due to compatibility issues on Safari Mobile
-						searchBoxRef.current!.setSelectionRange(0, 20);
-					}}
-					onChange={e =>
-						setSearchForCurrencyVal(e.target.value.toUpperCase())
-					}
-				/>
-				<button onClick={handleSubmitSearch}>Search</button>
+				<form onSubmit={handleSubmitSearch}>
+					<input
+						type="text"
+						value={searchForCurrencyVal}
+						maxLength={10}
+						ref={searchBoxRef}
+						onFocus={() => {
+							// used 'setSelectionRange()' instead of '.select()' due to compatibility issues on Safari Mobile
+							searchBoxRef.current!.setSelectionRange(0, 20);
+						}}
+						onChange={e =>
+							setSearchForCurrencyVal(
+								e.target.value.toUpperCase()
+							)
+						}
+					/>
+					<button onClick={handleSubmitSearch}>Search</button>
+				</form>
 			</div>
 			<div className="currencies-container">
 				<div className="currencies">

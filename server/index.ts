@@ -7,7 +7,10 @@ app.use(cors());
 
 app.use("/api/v1", router);
 
-const PORT = 3000;
+if (process.env.NODE_ENV === "production")
+	app.use(express.static("../client/build/"));
+
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
 	console.log(`app running on port ${PORT}`);
 });

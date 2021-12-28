@@ -20,12 +20,12 @@ const api_key = `&access_key=${process.env.API_KEY}`;
 const getCurrentData = async (req: express.Request, res: express.Response) => {
 	let response: Data[] = [];
 	try {
-		const data1 = await (
+		const data = await (
 			await axios.get(
 				"https://fcsapi.com/api-v3/forex/latest?id=" + IDS + api_key
 			)
 		).data.response;
-		for (let currencyPair of data1) {
+		for (let currencyPair of data) {
 			response.push(<Data>{
 				ticker: currencyPair.s,
 				open: currencyPair.o,
@@ -70,7 +70,7 @@ const getDataFromSearch = async (
 		res.send(response.filter(el => el.ticker.includes(searchQuery)));
 	} catch (error: any) {
 		res.status(400).send({
-			msg: "Bad Request",
+			msg: "Bad Request" + error.message,
 			error,
 		});
 	}
