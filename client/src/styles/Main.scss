@@ -2,7 +2,6 @@
 
 .Main {
 	margin-top: 30px;
-	// display: flex;
 	.search-for-currencies-row {
 		display: flex;
 		justify-content: center;
@@ -43,6 +42,26 @@
 			div {
 				color: black;
 				font-weight: bold;
+			}
+		}
+	}
+	.search-status-messages {
+		display: flex;
+		justify-content: center;
+		margin-top: 30px;
+		p {
+			border-radius: 1rem;
+			padding: 10px;
+			width: fit-content;
+		}
+		&.neutral {
+			p {
+				background-color: rgb(223, 187, 46);
+			}
+		}
+		&.err {
+			p {
+				background-color: rgb(173, 63, 63);
 			}
 		}
 	}
