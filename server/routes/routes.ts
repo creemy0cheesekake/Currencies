@@ -1,8 +1,10 @@
 import express from "express";
-import { getCurrentData } from "../controllers/controllers";
+import { getCurrentData, getDataFromSearch } from "../controllers/controllers";
 
 const router = express.Router();
 
 router.route("/").get(getCurrentData);
+
+router.route("/:query").get(getDataFromSearch);
 
 export default router;

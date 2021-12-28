@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "../styles/Main.scss";
 import { Logo } from "./Logo";
 import { v4 as uuid } from "uuid";
-import Select from "react-select";
 import axios from "axios";
 
 interface Props {}
@@ -16,15 +15,8 @@ interface Data {
 	change: string;
 }
 
-interface CurrencyDropdownOption {
-	value: string;
-	label: string;
-}
-
 const Main: React.FC<Props> = (props: Props) => {
 	const [searchForCurrencyVal, setSearchForCurrencyVal] = useState("");
-	const [selectedOption, setSelectedOption] =
-		useState<CurrencyDropdownOption | null>();
 	const [currencyData, setCurrencyData] = useState([]);
 
 	useEffect(() => {
@@ -42,11 +34,6 @@ const Main: React.FC<Props> = (props: Props) => {
 		})();
 	}, []);
 
-	const currencyDropdownOptions: CurrencyDropdownOption[] = [
-		{ value: "USD", label: "USD" },
-		{ value: "CAD", label: "CAD" },
-		{ value: "JPY", label: "JPY" },
-	];
 	return (
 		<div className="Main">
 			<Logo />
@@ -54,25 +41,43 @@ const Main: React.FC<Props> = (props: Props) => {
 				<input
 					type="text"
 					value={searchForCurrencyVal}
-					onChange={e => setSearchForCurrencyVal(e.target.value)}
+					maxLength={10}
+					onChange={e =>
+						setSearchForCurrencyVal(e.target.value.toUpperCase())
+					}
 				/>
 				<button>Search</button>
-				<Select
-					isSearchable
-					value={selectedOption}
-					options={currencyDropdownOptions}
-					onChange={(newOption: CurrencyDropdownOption | null) => {
-						setSelectedOption(newOption);
-					}}
-				/>
 			</div>
 			{currencyData.length && (
 				<div className="currencies-container">
 					<div className="currencies">
+						<div className="currency-row labels">
+							<div>Ticker</div>
+							<div>Open</div>
+							<div>High</div>
+							<div>Low</div>
+							<div>Close</div>
+							<div>Change</div>
+						</div>
 						{currencyData.map((data: Data) => (
 							<div key={uuid()} className="currency-row">
 								{Object.keys(data).map((key: string) => (
-									<div key={uuid()}>
+									<div
+										className={
+											key === "change"
+												? data[
+														key as keyof Data
+												  ].charAt(0) === "+"
+													? "positive-change"
+													: data[
+															key as keyof Data
+													  ].charAt(0) === "0"
+													? "zero-change"
+													: "negative-change"
+												: ""
+										}
+										key={uuid()}
+									>
 										{data[key as keyof Data]}
 									</div>
 								))}
