@@ -4,7 +4,7 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"start": "npm run server && npm run client",
+		"start": "npm run build && npm run server && npm run client",
 		"client": "cd client && npm start",
 		"server": "cd server && tsc --jsx preserve --lib es2015,dom && node index.js",
 		"build": "cd client && npm run build",
