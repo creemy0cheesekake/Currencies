@@ -46,6 +46,9 @@
 				color: black;
 				font-weight: bold;
 			}
+			&:hover {
+				filter: none;
+			}
 		}
 		transition: filter 0.25s;
 		&:hover {
