@@ -21,9 +21,7 @@ const getCurrentData = async (req: express.Request, res: express.Response) => {
 	let response: Data[] = [];
 	try {
 		const data = await (
-			await axios.get(
-				"https://fcsapi.com/api-v3/forex/latest?id=" + IDS + api_key
-			)
+			await axios.get("https://fcsapi.com/api-v3/forex/latest?id=" + IDS + api_key)
 		).data.response;
 		for (let currencyPair of data) {
 			response.push(<Data>{
@@ -45,17 +43,12 @@ const getCurrentData = async (req: express.Request, res: express.Response) => {
 	}
 };
 
-const getDataFromSearch = async (
-	req: express.Request,
-	res: express.Response
-) => {
+const getDataFromSearch = async (req: express.Request, res: express.Response) => {
 	try {
 		const searchQuery = (<string>req.query.q).toUpperCase();
 		let response: Data[] = [];
 		const data1 = await (
-			await axios.get(
-				"https://fcsapi.com/api-v3/forex/latest?id=" + IDS + api_key
-			)
+			await axios.get("https://fcsapi.com/api-v3/forex/latest?id=" + IDS + api_key)
 		).data.response;
 		for (let currencyPair of data1) {
 			response.push(<Data>{

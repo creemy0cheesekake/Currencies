@@ -26,11 +26,14 @@ const Main: React.FC = () => {
 			setLoading(true);
 			const searchQuery = searchBoxRef.current!.value;
 			const response = await axios.get(
-				process.env.REACT_APP_API_PATH + "/search?q=" + searchQuery
+				process.env.REACT_APP_API_PATH + "/search?q=" + searchQuery,
 			);
 			setCurrencyData(response.data);
 		} catch (err) {
-			alert("error: " + err);
+			alert(
+				"Sorry, I'm broke and thus, I can't afford the paid version of this API, and there are call limits 😭Please wait 60 seconds and try again " +
+					err,
+			);
 		}
 		setLoading(false);
 	};
@@ -38,14 +41,12 @@ const Main: React.FC = () => {
 	useEffect(() => {
 		(async () => {
 			try {
-				const response = await axios.get(
-					process.env.REACT_APP_API_PATH!
-				);
+				const response = await axios.get(process.env.REACT_APP_API_PATH!);
 				setCurrencyData(response.data);
 			} catch (err) {
 				alert(
 					"Sorry, I'm broke and thus, I can't afford the paid version of this API, and there are call limits 😭" +
-						err
+						err,
 				);
 			}
 			setLoading(false);
@@ -67,9 +68,7 @@ const Main: React.FC = () => {
 							searchBoxRef.current!.setSelectionRange(0, 20);
 						}}
 						onChange={e =>
-							setSearchForCurrencyVal(
-								e.target.value.toUpperCase()
-							)
+							setSearchForCurrencyVal(e.target.value.toUpperCase())
 						}
 					/>
 					<button onClick={handleSubmitSearch}>Search</button>
@@ -93,13 +92,13 @@ const Main: React.FC = () => {
 										<div
 											className={
 												key === "change"
-													? data[
-															key as keyof Data
-													  ].charAt(0) === "+"
+													? data[key as keyof Data].charAt(
+															0,
+													  ) === "+"
 														? "positive-change"
-														: data[
-																key as keyof Data
-														  ].charAt(0) === "0"
+														: data[key as keyof Data].charAt(
+																0,
+														  ) === "0"
 														? "zero-change"
 														: "negative-change"
 													: ""
